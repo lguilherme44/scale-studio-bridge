@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Scale Studio · conectando TikTok</title>
+  <style>body{font-family:system-ui,sans-serif;background:#0b0b12;color:#eee;padding:40px;max-width:560px;margin:auto}a{color:#a78bfa}</style>
+</head>
+<body>
+  <h2>Conectando a TikTok ao Scale Studio…</h2>
+  <p id="msg">Repassando a autorização para o Scale Studio no seu computador.</p>
+  <script>
+    // Página-ponte: a TikTok só aceita redirect HTTPS; o Scale Studio roda em http://localhost:3333.
+    // Ela não guarda nem envia nada a terceiros: só repassa ?code&state para o servidor local da mesma máquina.
+    var q = window.location.search;
+    if (/[?&](code|error)=/.test(q)) {
+      window.location.replace('http://localhost:3333/api/tiktok/callback' + q);
+    } else {
+      document.getElementById('msg').textContent = 'Nenhuma autorização recebida. Volte ao Scale Studio e clique em Conectar TikTok.';
+    }
+  </script>
+</body>
+</html>
